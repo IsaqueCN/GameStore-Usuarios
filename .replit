@@ -1,11 +1,11 @@
 modules = ["web", "nodejs-20"]
-run = "npm install -g http-server && cd ./SiteGames/ && http-server . && http://localhost:8080/SiteGames/RegisterPage/index.html"
+run = "npm install -g http-server && cd ./SiteGames/ && http-server ."
 
 [nix]
 channel = "stable-23_11"
 
 [deployment]
-run = ["sh", "-c", "npm install -g http-server && cd ./SiteGames/ && http-server && http://localhost:8080/SiteGames/RegisterPage/index.html"]
+run = ["sh", "-c", "npm install -g http-server && cd ./SiteGames/ && http-server ."]
 
 [[ports]]
 localPort = 8080
