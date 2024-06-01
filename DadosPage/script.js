@@ -1,3 +1,7 @@
+// É necessário fazer uma funcionalidade de sair do site
+// É necessário fazer uma funcionalidade de um texto de error aparecer quando errar
+// É necessário mostrar os dados do usuário
+
 let saveButton = document.getElementById("save-button");
 let emailInput = document.getElementById("email");
 let usernameInput = document.getElementById("username");
