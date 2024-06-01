@@ -41,7 +41,7 @@ nav ul li a {
 
 .user-info {
     display: flex;
-    align-items: center;
+    align-items: left;
 }
 
 .user-img {

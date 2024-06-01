@@ -1,5 +1,5 @@
 modules = ["web", "nodejs-20"]
-run = "npm install -g http-server && cd ./SiteGames/ && http-server ."
+run = "npm install -g http-server && http-server ."
 
 [nix]
 channel = "stable-23_11"
