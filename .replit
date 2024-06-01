@@ -1,5 +1,5 @@
 modules = ["web", "nodejs-20"]
-run = "npm install -g http-server && http-server ."
+run = "http-server ."
 
 [nix]
 channel = "stable-23_11"

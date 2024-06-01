@@ -91,13 +91,34 @@ nav ul li a {
     width: 40%;
 }
 
-.data-field input {
-    width: 100%;
+.input-button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre o input e o botão */
+}
+
+.input-button-wrapper input {
+    flex-grow: 1;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid black;
     border-radius: 8px;
     box-sizing: border-box;
+}
+
+.alter-button {
+    background-color: black;
+    color: white;
+    border: 1px solid purple;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.alter-button:hover {
+    background-color: #7d26cd;
 }
 
 .save-button-container {
@@ -138,6 +159,24 @@ nav ul li a {
     background-color: red;
     color: white;
 }
+
+.logout-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.logout-button:hover {
+    background-color: darkred;
+}
+
+
 
 @media only screen and (max-width: 600px) {
     header {
