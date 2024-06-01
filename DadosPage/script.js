@@ -141,3 +141,4 @@ logoutButton.addEventListener("click", () => {
     // Sair da conta atual (Remover as credenciais e redirecionar para a página de login)
     localStorage.setItem("Credentials", JSON.stringify({}))
     window.location.href = "../LoginPage/index.html
+}
