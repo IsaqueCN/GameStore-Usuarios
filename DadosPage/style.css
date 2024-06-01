@@ -94,7 +94,7 @@ nav ul li a {
 .input-button-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaçamento entre o input e o botão */
+    gap: 10px;
 }
 
 .input-button-wrapper input {
