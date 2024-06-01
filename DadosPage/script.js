@@ -1,62 +1,104 @@
-function validateEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+let saveButton = document.getElementById("save-button");
+let emailInput = document.getElementById("email");
+let usernameInput = document.getElementById("username");
+let passwordInput = document.getElementById("password");
+let usernameText = document.getElementById("usernameText");
+
+let Cadastros; // Onde será guardado todas as contas
+try {
+    Cadastros = JSON.parse(localStorage.Cadastros)
+} catch {
+    Cadastros = {}
+    localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
 }
 
-function saveUserData() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const email = document.getElementById('email').value;
-    const address = document.getElementById('address').value;
+let Credentials = JSON.parse(localStorage.getItem("Credentials"))
 
-    const changes = [];
-    const userData = {
-        username: username,
-        password: password,
-        email: email,
-        address: address
-    };
+//Se a pessoa não está logada em uma conta
+if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Credentials.senha)) {
+    localStorage.setItem("Credentials", JSON.stringify({}))
+    window.location.href = "../LoginPage/index.html"
+} else {
+    console.log(Credentials)
+    usernameText.textContent = Credentials["unchangedname"];
+}
 
-    const errorMessage = document.getElementById('error-message');
-    const successMessage = document.getElementById('success-message');
+// FUNCIONALIDADE PARA SAIR DA CONTA
+/* 
+sairLink.addEventListener("click", () => {
+    //Sair da conta atual (Remover as credenciais e atualizar a página)
+    localStorage.setItem("Credentials", JSON.stringify({}))
+    window.location.reload();
+})
+*/
 
-    if (email && !validateEmail(email)) {
-        errorMessage.style.display = 'block';
-        successMessage.style.display = 'none';
-        errorMessage.innerText = 'E-mail inválido';
-        setTimeout(() => {
-            errorMessage.style.display = 'none';
-        }, 3000);
-        return;
+function checkUsername() {
+    if (usernameInput.value.length <= 3) {
+        textError("Username", "Nome Muito Pequeno!")
+        return false;
+    } else if (usernameInput.value.length >= 13) {
+        textError("Username", "Nome Muito Grande!")
+        return false;
+    } else if(Cadastros[usernameInput.value.toLowerCase()]) {
+        textError("Username", "Nome Já Existente!")
+        return false;
     } else {
-        errorMessage.style.display = 'none';
-    }
-
-    if (username) {
-        changes.push('Nome de usuario salvo com sucesso');
-    }
-    if (password) {
-        changes.push('Senha salva com sucesso');
-    }
-    if (email) {
-        changes.push('E-mail salvo com sucesso');
-    }
-    if (address) {
-        changes.push('Endereço salvo com sucesso');
-    }
-
-    if (changes.length > 1) {
-        successMessage.innerText = 'Informações salvas com sucesso';
-    } else if (changes.length === 1) {
-        successMessage.innerText = changes[0];
-    } else {
-        successMessage.innerText = '';
-    }
-
-    if (changes.length > 0) {
-        successMessage.style.display = 'block';
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-        }, 3000);
+        return true;
     }
 }
+
+function checkPassword() {
+    if (passwordInput.value.length <= 6) {
+        textError("Password", "Senha Muito Curta!");
+        return false;
+    } else if (/\d/.test(passwordInput.value) == false) {
+        textError("Password", "Senha Deve Ter Números!");
+        return false;
+    } else if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passwordInput.value) == false) {
+        textError("Password", "Senha Deve Ter Caracteres Especiais!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkEmail() {
+    //Regex para validação de e-mail retirado de: https://regexr.com/3e48o
+    if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput.value) == false) {
+        textError("Email", "Email Inválido")
+    } else {
+        return true;
+    }
+}
+
+function textError(errorElement, errorMessage) {
+    console.log(`Erro em ${errorElement.name}, mensagem: ${errorMessage}`)
+}
+
+saveButton.addEventListener("click", () => {
+    //resetErrors();
+    let usernameCheck = checkUsername();
+    let passwordCheck = checkPassword();
+    let emailCheck = checkEmail();
+
+    if (usernameCheck && passwordCheck && emailCheck) {
+        //Se estiver tudo certo
+        Cadastros[usernameInput.value.toLowerCase()] = {
+            "senha": passwordInput.value,
+            "email": emailInput.value 
+        }
+        localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+        saveButton.value = "Atualizado!"
+        
+        localStorage.setItem("Credentials", JSON.stringify({
+            "unchangedname": usernameInput.value,
+            "name": usernameInput.value.toLowerCase(),
+            "senha": passwordInput.value,
+        }))
+
+        //Aguardar 2 segundos e ir para a página de acesso
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
+});
