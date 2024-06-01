@@ -9,7 +9,7 @@ let usernameInput = document.getElementById("username");
 let passwordInput = document.getElementById("password");
 let usernameText = document.getElementById("usernameText");
 
-let Cadastros; // Onde será guardado todas as contas
+let Cadastros; // Objeto que contem todas as contas
 try {
     Cadastros = JSON.parse(localStorage.Cadastros)
 } catch {
@@ -19,7 +19,7 @@ try {
 
 let Credentials = JSON.parse(localStorage.getItem("Credentials"))
 
-//Se a pessoa não está logada em uma conta
+//Se a pessoa não está logada em uma conta redirecionar ela para a página de Login
 if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Credentials.senha)) {
     localStorage.setItem("Credentials", JSON.stringify({}))
     window.location.href = "../LoginPage/index.html"
@@ -30,7 +30,7 @@ if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Cre
 
 // FUNCIONALIDADE PARA SAIR DA CONTA
 /* 
-sairLink.addEventListener("click", () => {
+SAIRBOTAO.addEventListener("click", () => {
     //Sair da conta atual (Remover as credenciais e atualizar a página)
     localStorage.setItem("Credentials", JSON.stringify({}))
     window.location.reload();
@@ -101,7 +101,6 @@ saveButton.addEventListener("click", () => {
             "senha": passwordInput.value,
         }))
 
-        //Aguardar 2 segundos e ir para a página de acesso
         setTimeout(() => {
             window.location.reload();
         }, 1000);
