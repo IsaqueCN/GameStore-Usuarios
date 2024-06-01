@@ -6,7 +6,8 @@ let passwordInput = document.getElementById("password");
 let addressInput = document.getElementById("address");
 let usernameText = document.getElementById("usernameText");
 let logoutButton = document.getElementById("logout-button");
-let alterButtons = (logoutButton.style.display = "none");
+let alterButtons = document.getElementsByClassName("alter-button")
+(logoutButton.style.display = "none");
 
 let Cadastros; // Objeto que contem todas as contas
 try {
@@ -33,6 +34,13 @@ if (
     addressInput.value = Cadastros[Credentials.name]["address"];
 }
 
+alterButtons.forEach(element => {
+    let inputElement = element.parentElement.children[0];
+
+    element.addEventListener("click", () => {
+        alterarCampo(inputElement);
+    })
+});
 function toggleLogout() {
     var logoutButton = document.getElementById("logout-button");
     logoutButton.style.display =
@@ -43,8 +51,9 @@ function toggleLogout() {
 }
 
 function alterarCampo(campo) {
-    readonly = false;
-    input.focus();
+    campo.readonly = false;
+    campo.focus();
+    console.log("triggered");
 }
 
 function checkUsername() {
