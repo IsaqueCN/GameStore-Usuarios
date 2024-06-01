@@ -93,7 +93,7 @@ loginButton.addEventListener("click", () => {
 
     if (validUser) {
         if (checkPassword()) {
-            // Se estiver tudo certo
+            // Se estiver tudo certo!
             loginButton.value = "Login Realizado!";
             localStorage.setItem(
                 "Credentials",

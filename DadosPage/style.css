@@ -41,7 +41,7 @@ nav ul li a {
 
 .user-info {
     display: flex;
-    align-items: left;
+    align-items: center;
 }
 
 .user-img {
@@ -75,7 +75,7 @@ nav ul li a {
 .user-data {
     padding: 20px;
     color: white;
-    text-align: center;
+    text-align: left;
 }
 
 .purple-line {

@@ -2,7 +2,7 @@ let usernameInput = document.getElementById("usernameInput");
 let usernameErrorText = document.getElementById("errorUsername");
 let usernameDiv = document.getElementById("usernameDiv");
 let passwordInput = document.getElementById("passwordInput");
-let passwordErrorText = document.getElementById("errorPassword")
+let passwordErrorText = document.getElementById("errorPassword");
 let passwordDiv = document.getElementById("passwordDiv");
 let emailInput = document.getElementById("emailInput");
 let emailErrorText = document.getElementById("errorEmail");
@@ -11,21 +11,21 @@ let registerButton = document.getElementById("registerButton");
 
 let Cadastros; // Onde será guardado todas as contas
 try {
-    Cadastros = JSON.parse(localStorage.Cadastros)
+    Cadastros = JSON.parse(localStorage.Cadastros);
 } catch {
-    Cadastros = {}
-    localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+    Cadastros = {};
+    localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
 }
 
 function checkUsername() {
     if (usernameInput.value.length <= 3) {
-        textError("Username", "Nome Muito Pequeno!")
+        textError("Username", "Nome Muito Pequeno!");
         return false;
     } else if (usernameInput.value.length >= 13) {
-        textError("Username", "Nome Muito Grande!")
+        textError("Username", "Nome Muito Grande!");
         return false;
-    } else if(Cadastros[usernameInput.value.toLowerCase()]) {
-        textError("Username", "Nome Já Existente!")
+    } else if (Cadastros[usernameInput.value.toLowerCase()]) {
+        textError("Username", "Nome Já Existente!");
         return false;
     } else {
         return true;
@@ -39,7 +39,10 @@ function checkPassword() {
     } else if (/\d/.test(passwordInput.value) == false) {
         textError("Password", "Senha Deve Ter Números!");
         return false;
-    } else if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passwordInput.value) == false) {
+    } else if (
+        /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passwordInput.value) ==
+        false
+    ) {
         textError("Password", "Senha Deve Ter Caracteres Especiais!");
         return false;
     } else {
@@ -50,7 +53,7 @@ function checkPassword() {
 function checkEmail() {
     //Regex para validação de e-mail retirado de: https://regexr.com/3e48o
     if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput.value) == false) {
-        textError("Email", "Email Inválido")
+        textError("Email", "Email Inválido");
     } else {
         return true;
     }
@@ -58,28 +61,46 @@ function checkEmail() {
 
 function resetErrors() {
     for (let i = 1; i <= 3; i++) {
-        let groupDiv
-        let errorElement
+        let groupDiv;
+        let errorElement;
         switch (i) {
-            case 1: groupDiv = usernameDiv; errorElement = usernameErrorText; break;
-            case 2: groupDiv = passwordDiv; errorElement = passwordErrorText; break;
-            case 3: groupDiv = emailDiv; errorElement = emailErrorText; break;
+            case 1:
+                groupDiv = usernameDiv;
+                errorElement = usernameErrorText;
+                break;
+            case 2:
+                groupDiv = passwordDiv;
+                errorElement = passwordErrorText;
+                break;
+            case 3:
+                groupDiv = emailDiv;
+                errorElement = emailErrorText;
+                break;
         }
 
         errorElement.style.setProperty("display", "none", "important");
 
         [...groupDiv.children].forEach((element) => {
-            element.style.setProperty("border-color", "#e000e0", "important")
-        })
+            element.style.setProperty("border-color", "#e000e0", "important");
+        });
     }
 }
 function textError(errorElement, errorMessage) {
-    let groupDiv
+    let groupDiv;
 
     switch (errorElement) {
-        case 'Username': groupDiv = usernameDiv; errorElement = usernameErrorText; break;
-        case 'Password': groupDiv = passwordDiv; errorElement = passwordErrorText; break;
-        case 'Email': groupDiv = emailDiv; errorElement = emailErrorText; break;
+        case "Username":
+            groupDiv = usernameDiv;
+            errorElement = usernameErrorText;
+            break;
+        case "Password":
+            groupDiv = passwordDiv;
+            errorElement = passwordErrorText;
+            break;
+        case "Email":
+            groupDiv = emailDiv;
+            errorElement = emailErrorText;
+            break;
     }
 
     try {
@@ -104,21 +125,24 @@ registerButton.addEventListener("click", () => {
     if (usernameCheck && passwordCheck && emailCheck) {
         //Se estiver tudo certo
         Cadastros[usernameInput.value.toLowerCase()] = {
-            "senha": passwordInput.value,
-            "email": emailInput.value 
-        }
-        localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
-        registerButton.value = "Registro Realizado!"
-        
-        localStorage.setItem("Credentials", JSON.stringify({
-            "unchangedname": usernameInput.value,
-            "name": usernameInput.value.toLowerCase(),
-            "senha": passwordInput.value,
-        }))
+            senha: passwordInput.value,
+            email: emailInput.value,
+        };
+        localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
+        registerButton.value = "Registro Realizado!";
+
+        localStorage.setItem(
+            "Credentials",
+            JSON.stringify({
+                unchangedname: usernameInput.value,
+                name: usernameInput.value.toLowerCase(),
+                senha: passwordInput.value,
+            }),
+        );
 
         //Aguardar 2 segundos e ir para a página de acesso
         setTimeout(() => {
-            window.location.href = "../AcessoPage/index.html"
+            window.location.href = "../DadosPage/index.html";
         }, 1000);
     }
 });
