@@ -1,5 +1,4 @@
 // É necessário mostrar os dados do usuário
-
 let saveButton = document.getElementById("save-button");
 let emailInput = document.getElementById("email");
 let usernameInput = document.getElementById("username");
@@ -7,7 +6,7 @@ let passwordInput = document.getElementById("password");
 let addressInput = document.getElementById("address");
 let usernameText = document.getElementById("usernameText");
 let logoutButton = document.getElementById("logout-button");
-logoutButton.style.display = "none";
+let alterButtons = (logoutButton.style.display = "none");
 
 let Cadastros; // Objeto que contem todas as contas
 try {
@@ -44,8 +43,7 @@ function toggleLogout() {
 }
 
 function alterarCampo(campo) {
-    let input = document.getElementById(campo);
-    input.readOnly = false;
+    readonly = false;
     input.focus();
 }
 

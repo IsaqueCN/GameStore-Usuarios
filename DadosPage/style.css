@@ -89,7 +89,7 @@ nav ul li a {
 .data-field {
     margin: 0 auto;
     width: 70%; /* Ajusta a largura dos campos de entrada */
-  max-width: 700px;
+    max-width: 700px;
 }
 
 .input-button-wrapper {
