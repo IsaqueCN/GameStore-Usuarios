@@ -11,20 +11,23 @@ logoutButton.style.display = "none";
 
 let Cadastros; // Objeto que contem todas as contas
 try {
-    Cadastros = JSON.parse(localStorage.Cadastros)
+    Cadastros = JSON.parse(localStorage.Cadastros);
 } catch {
-    Cadastros = {}
-    localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+    Cadastros = {};
+    localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
 }
 
-let Credentials = JSON.parse(localStorage.getItem("Credentials"))
+let Credentials = JSON.parse(localStorage.getItem("Credentials"));
 
 //Se a pessoa não está logada em uma conta redirecionar ela para a página de Login
-if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Credentials.senha)) {
-    localStorage.setItem("Credentials", JSON.stringify({}))
-    window.location.href = "../LoginPage/index.html"
+if (
+    !Cadastros[Credentials.name] ||
+    Cadastros[Credentials.name]["senha"] != Credentials.senha
+) {
+    localStorage.setItem("Credentials", JSON.stringify({}));
+    window.location.href = "../LoginPage/index.html";
 } else {
-    console.log(Credentials)
+    console.log(Credentials);
     usernameText.textContent = Credentials["unchangedname"];
     usernameInput.value = Credentials["unchangedname"];
     emailInput.value = Cadastros[Credentials.name]["email"];
@@ -33,9 +36,12 @@ if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Cre
 
 function toggleLogout() {
     var logoutButton = document.getElementById("logout-button");
-    logoutButton.style.display = (logoutButton.style.display === 'none' || logoutButton.style.display === '') ? 'block' : 'none';
+    logoutButton.style.display =
+        logoutButton.style.display === "none" ||
+        logoutButton.style.display === ""
+            ? "block"
+            : "none";
 }
-
 
 function alterarCampo(campo) {
     let input = document.getElementById(campo);
@@ -45,13 +51,13 @@ function alterarCampo(campo) {
 
 function checkUsername() {
     if (usernameInput.value.length <= 3) {
-        textError("Username", "Nome Muito Pequeno!")
+        textError("Username", "Nome Muito Pequeno!");
         return false;
     } else if (usernameInput.value.length >= 13) {
-        textError("Username", "Nome Muito Grande!")
+        textError("Username", "Nome Muito Grande!");
         return false;
-    } else if(Cadastros[usernameInput.value.toLowerCase()]) {
-        textError("Username", "Nome Já Existente!")
+    } else if (Cadastros[usernameInput.value.toLowerCase()]) {
+        textError("Username", "Nome Já Existente!");
         return false;
     } else {
         return true;
@@ -60,7 +66,7 @@ function checkUsername() {
 
 function checkPassword() {
     if (passwordInput.value.length <= 6) {
-        textError("Password", "Senha Muito Pequena!")
+        textError("Password", "Senha Muito Pequena!");
         return false;
     } else {
         return true;
@@ -70,7 +76,7 @@ function checkPassword() {
 function checkEmail() {
     //Regex para validação de e-mail retirado de: https://regexr.com/3e48o
     if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput.value) == false) {
-        textError("Email", "Email Inválido")
+        textError("Email", "Email Inválido");
     } else {
         return true;
     }
@@ -79,18 +85,18 @@ function checkEmail() {
 function textError(type, text) {
     let ele;
     if (type == "Password") {
-        ele = document.getElementById("password")
+        ele = document.getElementById("password");
     } else if (type == "Username") {
-        ele = document.getElementById("username")
+        ele = document.getElementById("username");
     } else {
-        ele = document.getElementById("email")
+        ele = document.getElementById("email");
     }
     if (!document.getElementById(`error-message-${type}`)) {
         let errorMessage = document.createElement("div");
         errorMessage.textContent = text;
-        errorMessage.className = "error-message"
-        errorMessage.id = `error-message-${type}`
-        ele.insertAdjacentElement("afterend", errorMessage)
+        errorMessage.className = "error-message";
+        errorMessage.id = `error-message-${type}`;
+        ele.insertAdjacentElement("afterend", errorMessage);
     } else {
         document.getElementById(`error-message-${type}`).textContent = text;
     }
@@ -100,14 +106,15 @@ saveButton.addEventListener("click", () => {
     // Username
     if (usernameInput.value.toLowerCase() != Credentials.name) {
         if (checkUsername()) {
-            Cadastros[usernameInput.value.toLowerCase()] = Cadastros[Credentials.name];
+            Cadastros[usernameInput.value.toLowerCase()] =
+                Cadastros[Credentials.name];
             delete Cadastros[Credentials.name];
             Credentials.name = usernameInput.value.toLowerCase();
             localStorage.setItem("Credentials", JSON.stringify(Credentials));
             localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
             window.location.reload();
         } else {
-            return
+            return;
         }
     }
 
@@ -116,29 +123,29 @@ saveButton.addEventListener("click", () => {
         if (checkPassword()) {
             Cadastros[Credentials.name]["senha"] = passwordInput.value;
             Credentials.senha = passwordInput.value;
-            localStorage.setItem("Credentials", JSON.stringify(Credentials))
-            localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+            localStorage.setItem("Credentials", JSON.stringify(Credentials));
+            localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
             window.location.reload();
         } else {
-            return
+            return;
         }
     }
 
     if (emailInput.value != Cadastros[Credentials.name]["email"]) {
-        Cadastros[Credentials.name]["email"] = emailInput.value
-        localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+        Cadastros[Credentials.name]["email"] = emailInput.value;
+        localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
         window.location.reload();
     }
 
     if (addressInput.value != Cadastros[Credentials.name]["address"]) {
-        Cadastros[Credentials.name]["address"] = addressInput.value
-        localStorage.setItem("Cadastros", JSON.stringify(Cadastros))
+        Cadastros[Credentials.name]["address"] = addressInput.value;
+        localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
         window.location.reload();
     }
 });
 
 logoutButton.addEventListener("click", () => {
     // Sair da conta atual (Remover as credenciais e redirecionar para a página de login)
-    localStorage.setItem("Credentials", JSON.stringify({}))
-    window.location.href = "../LoginPage/index.html
-}
+    localStorage.setItem("Credentials", JSON.stringify({}));
+    window.location.href = "../LoginPage/index.html";
+});
