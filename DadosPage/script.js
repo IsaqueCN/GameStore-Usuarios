@@ -32,12 +32,10 @@ if (!Cadastros[Credentials.name] || (Cadastros[Credentials.name]["senha"] != Cre
 }
 
 function toggleLogout() {
-    if (logoutButton.style.display === "none") {
-        logoutButton.style.display = "block";
-    } else {
-        logoutButton.style.display = "none";
-    }
+    var logoutButton = document.getElementById("logout-button");
+    logoutButton.style.display = (logoutButton.style.display === 'none' || logoutButton.style.display === '') ? 'block' : 'none';
 }
+
 
 function alterarCampo(campo) {
     let input = document.getElementById(campo);
