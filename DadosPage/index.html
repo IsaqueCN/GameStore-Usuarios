@@ -19,7 +19,11 @@
                 </ul>
             </nav>
             <div class="search-bar">
-                <input type="text" placeholder="Pesquisar" />
+                <input
+                    id="pesquisarinput"
+                    type="text"
+                    placeholder="Pesquisar"
+                />
             </div>
             <div class="user">
                 <div class="user-info">
@@ -30,7 +34,11 @@
                         onclick="toggleLogout()"
                         >Nome do Usuário</span
                     >
-                    <button id="logout-button" class="logout-button" style="display: none;">
+                    <button
+                        id="logout-button"
+                        class="logout-button"
+                        style="display: none"
+                    >
                         Sair
                     </button>
                 </div>
@@ -70,7 +78,7 @@
                             placeholder="Alterar e-mail"
                             readonly
                         />
-                        <br>
+                        <br />
                         <button
                             class="alter-button"
                             onclick="alterarCampo('email')"
@@ -89,7 +97,7 @@
                             placeholder="Alterar endereço"
                             readonly
                         />
-                        <br>
+                        <br />
                         <button
                             class="alter-button"
                             onclick="alterarCampo('address')"

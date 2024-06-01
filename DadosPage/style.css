@@ -197,4 +197,8 @@ nav ul li a {
     .input-button-wrapper input {
         width: calc(50% - 5px);
     }
+
+  #pesquisarinput {
+    width: 100%;
+  }
 }
