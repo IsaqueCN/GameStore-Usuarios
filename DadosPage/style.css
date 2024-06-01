@@ -1,3 +1,5 @@
+/* Adicionei regras de estilo para garantir a responsividade */
+
 body {
     background-color: black;
     margin: 0;
@@ -6,8 +8,10 @@ body {
 
 header {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    /* Permite que os itens sejam distribuídos em várias linhas */
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     background-color: purple;
 }
@@ -63,7 +67,8 @@ nav ul li a {
 }
 
 .search-bar input {
-    width: 50%;
+    width: 100%;
+    /* Ajustado para ocupar toda a largura disponível */
     padding: 10px;
     border: none;
     border-radius: 20px;
@@ -72,29 +77,42 @@ nav ul li a {
     background-color: black;
 }
 
+.center-container {
+    display: flex;
+    justify-content: center;
+    /* Centraliza o conteúdo horizontalmente */
+    align-items: center;
+    height: 100vh;
+    /* Define a altura para ocupar toda a altura da tela */
+}
+
 .user-data {
     padding: 20px;
     color: white;
-    text-align: left;
+    text-align: center;
+    max-width: 600px;
+    /* Limita a largura do conteúdo */
 }
 
 .purple-line {
     border: 0;
     height: 4px;
     background: purple;
-    margin: 10px 0;
+    margin: 0 auto 20px auto;
+    /* Centraliza e adiciona margem na parte inferior */
     width: 25%;
 }
 
 .data-field {
-    margin: 0 auto;
-    width: 40%;
+    margin-bottom: 20px;
+    /* Adiciona espaço entre os campos */
 }
 
 .input-button-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    /* Espaçamento uniforme entre o input e o botão */
 }
 
 .input-button-wrapper input {
@@ -114,76 +132,5 @@ nav ul li a {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 14px;
-}
-
-.alter-button:hover {
-    background-color: #7d26cd;
-}
-
-.save-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.save-button {
-    background-color: purple;
-    color: white;
-    border: none;
-    padding: 20px 40px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 18px;
-}
-
-.save-button:hover {
-    background-color: #7d26cd;
-}
-
-.success-message, .error-message {
-    display: none;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.success-message {
-    background-color: green;
-    color: white;
-}
-
-.error-message {
-    background-color: red;
-    color: white;
-}
-
-.logout-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.logout-button:hover {
-    background-color: darkred;
-}
-
-
-
-@media only screen and (max-width: 600px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .user {
-        margin-top: 20px;
-    }
+    font-size: 14;
 }
