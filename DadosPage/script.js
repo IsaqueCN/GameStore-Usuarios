@@ -7,7 +7,7 @@ let addressInput = document.getElementById("address");
 let usernameText = document.getElementById("usernameText");
 let logoutButton = document.getElementById("logout-button");
 let alterButtons = document.getElementsByClassName("alter-button")
-(logoutButton.style.display = "none");
+logoutButton.style.display = "none";
 
 let Cadastros; // Objeto que contem todas as contas
 try {
