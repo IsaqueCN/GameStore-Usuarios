@@ -19,12 +19,13 @@
             </ul>
         </nav>
         <div class="search-bar">
-            <input type="text" placeholder="Pesquisar">
+            <input id="pesquisarinput" type="text" placeholder="Pesquisar">
         </div>
         <div class="user">
             <div class="user-info">
                 <img src="imagens/dog.png" alt="User" class="user-img">
-                <span class="user-name">Nome do Usuário</span>
+                <span id="usernameText" class="user-name">Nome do Usuário</span>
+                <button id="logout-button" class="logout-button">Sair</button>
             </div>
         </div>
     </header>
@@ -36,28 +37,43 @@
             </div>
             <div class="data-field">
                 <label for="username">Nome de Usuário</label><br>
-                <input type="text" id="username" name="username" placeholder="Alterar nome de usuário"><br>
-            </div>
-            <div class="data-field">
-                <label for="password">Senha</label><br>
-                <input type="password" id="password" name="password" placeholder="Alterar senha"><br>
+                <div class="input-button-wrapper">
+                    <input type="text" id="username" name="username" placeholder="Alterar nome de usuário" readonly><br>
+                    <button class="alter-button">Alterar</button>
+                </div>
+                <p class="text-error">Nome muito grande!</p>
             </div>
             <div class="data-field">
                 <label for="email">E-mail</label><br>
-                <input type="email" id="email" name="email" placeholder="Alterar e-mail"><br>
+                <div class="input-button-wrapper">
+                    <input type="email" id="email" name="email" placeholder="Alterar e-mail" readonly><br>
+                    <button class="alter-button">Alterar</button>
+                </div>
+                <p class="text-error">Email Incorreto!</p>
             </div>
             <div class="data-field">
                 <label for="address">Endereço</label><br>
-                <input type="text" id="address" name="address" placeholder="Alterar endereço"><br>
+                <div class="input-button-wrapper">
+                    <input type="text" id="address" name="address" placeholder="Alterar endereço" readonly><br>
+                    <button class="alter-button">Alterar</button>
+                </div>
+            </div>
+            <div class="data-field">
+                <label for="password">Senha</label><br>
+                <div class="input-button-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Alterar senha" readonly><br>
+                    <button class="alter-button">Alterar</button>
+                </div>
+                <p class="text-error">Senha ruim!</p>
             </div>
             <div id="success-message" class="success-message">
-                Informações salvas com sucesso
+                Informações salvas com sucesso!
             </div>
             <div id="error-message" class="error-message">
                 E-mail inválido
             </div>
             <div class="save-button-container">
-                <button class="save-button" onclick="saveUserData()">Salvar</button>
+                <button id="save-button" class="save-button">Salvar</button>
             </div>
         </div>
     </div>
