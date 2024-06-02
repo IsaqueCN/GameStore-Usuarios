@@ -167,11 +167,12 @@ nav ul li a {
     color: white;
     border: none;
     padding: 10px 20px;
+    margin: 0;
+    margin-left: 10px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 14px;
-    margin-top: 10px;
 }
 
 .text-error {

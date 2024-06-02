@@ -8,7 +8,6 @@ let usernameText = document.getElementById("usernameText");
 let logoutButton = document.getElementById("logout-button");
 let alterButtons = document.getElementsByClassName("alter-button")
 let textErrors = document.getElementsByClassName("text-error")
-logoutButton.style.display = "none";
 
 let Cadastros; // Objeto que contem todas as contas
 try {
@@ -32,7 +31,7 @@ if (
     usernameInput.value = Credentials["unchangedname"];
     emailInput.value = Cadastros[Credentials.name]["email"];
     if (Cadastros[Credentials.name]["address"] != "undefined") {
-        addressInput.value = Cadastros[Credentials.name]["address"] ?? "Nenhum";
+        addressInput.value = Cadastros[Credentials.name]["address"] ?? "";
     }
 }
 
@@ -43,15 +42,6 @@ for (let element of alterButtons) {
         alterarCampo(inputElement);
     })
 };
-
-function toggleLogout() {
-    var logoutButton = document.getElementById("logout-button");
-    logoutButton.style.display =
-        logoutButton.style.display === "none" ||
-            logoutButton.style.display === ""
-            ? "block"
-            : "none";
-}
 
 function alterarCampo(campo) {
     if (campo.readOnly == true) {
@@ -83,7 +73,16 @@ function checkUsername() {
 function checkPassword() {
     if (passwordInput.readOnly == false) {
         if (passwordInput.value.length <= 6) {
-            textError("Password", "Senha Muito Pequena!");
+            textError("Password", "Senha Muito Curta!");
+            return false;
+        } else if (/\d/.test(passwordInput.value) == false) {
+            textError("Password", "Senha Deve Ter Números!");
+            return false;
+        } else if (
+            /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passwordInput.value) ==
+            false
+        ) {
+            textError("Password", "Senha Deve Ter Caracteres Especiais!");
             return false;
         }
     } 
