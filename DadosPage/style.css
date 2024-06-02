@@ -144,24 +144,6 @@ nav ul li a {
     background-color: #7d26cd;
 }
 
-.success-message, .error-message {
-    display: none;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.success-message {
-    background-color: green;
-    color: white;
-}
-
-.error-message {
-    background-color: red;
-    color: white;
-}
-
 .logout-button {
     background-color: red;
     color: white;
