@@ -54,6 +54,7 @@ function checkEmail() {
     //Regex para validação de e-mail retirado de: https://regexr.com/3e48o
     if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput.value) == false) {
         textError("Email", "Email Inválido");
+        return false;
     } else {
         return true;
     }

@@ -39,29 +39,32 @@
                 <label for="username">Nome de Usuário</label><br>
                 <div class="input-button-wrapper">
                     <input type="text" id="username" name="username" placeholder="Alterar nome de usuário" readonly><br>
-                    <button class="alter-button" onclick="alterarCampo('username')">Alterar</button>
+                    <button class="alter-button">Alterar</button>
                 </div>
+                <p class="text-error">Nome muito grande!</p>
             </div>
             <div class="data-field">
                 <label for="email">E-mail</label><br>
                 <div class="input-button-wrapper">
                     <input type="email" id="email" name="email" placeholder="Alterar e-mail" readonly><br>
-                    <button class="alter-button" onclick="alterarCampo('email')">Alterar</button>
+                    <button class="alter-button">Alterar</button>
                 </div>
+                <p class="text-error">Email Incorreto!</p>
             </div>
             <div class="data-field">
                 <label for="address">Endereço</label><br>
                 <div class="input-button-wrapper">
                     <input type="text" id="address" name="address" placeholder="Alterar endereço" readonly><br>
-                    <button class="alter-button" onclick="alterarCampo('address')">Alterar</button>
+                    <button class="alter-button">Alterar</button>
                 </div>
             </div>
             <div class="data-field">
                 <label for="password">Senha</label><br>
                 <div class="input-button-wrapper">
                     <input type="password" id="password" name="password" placeholder="Alterar senha" readonly><br>
-                    <button class="alter-button" onclick="alterarCampo('password')">Alterar</button>
+                    <button class="alter-button">Alterar</button>
                 </div>
+                <p class="text-error">Senha ruim!</p>
             </div>
             <div id="success-message" class="success-message">
                 Informações salvas com sucesso!

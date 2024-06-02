@@ -7,6 +7,7 @@ let addressInput = document.getElementById("address");
 let usernameText = document.getElementById("usernameText");
 let logoutButton = document.getElementById("logout-button");
 let alterButtons = document.getElementsByClassName("alter-button")
+let textErrors = document.getElementsByClassName("text-error")
 logoutButton.style.display = "none";
 
 let Cadastros; // Objeto que contem todas as contas
@@ -27,33 +28,41 @@ if (
     localStorage.setItem("Credentials", JSON.stringify({}));
     window.location.href = "../LoginPage/index.html";
 } else {
-    console.log(Credentials);
     usernameText.textContent = Credentials["unchangedname"];
     usernameInput.value = Credentials["unchangedname"];
     emailInput.value = Cadastros[Credentials.name]["email"];
-    addressInput.value = Cadastros[Credentials.name]["address"];
+    if (Cadastros[Credentials.name]["address"] != "undefined") {
+        addressInput.value = Cadastros[Credentials.name]["address"] ?? "Nenhum";
+    }
 }
 
-alterButtons.forEach(element => {
+for (let element of alterButtons) {
     let inputElement = element.parentElement.children[0];
 
-    element.addEventListener("click", () => {
+    element.addEventListener("click", function () {
         alterarCampo(inputElement);
     })
-});
+};
+
 function toggleLogout() {
     var logoutButton = document.getElementById("logout-button");
     logoutButton.style.display =
         logoutButton.style.display === "none" ||
-        logoutButton.style.display === ""
+            logoutButton.style.display === ""
             ? "block"
             : "none";
 }
 
 function alterarCampo(campo) {
-    campo.readonly = false;
-    campo.focus();
-    console.log("triggered");
+    if (campo.readOnly == true) {
+        campo.readOnly = false;
+        campo.focus();
+    } else {
+        campo.readOnly = true;
+        if (campo.getAttribute("type") == "password") {
+            campo.value = "";
+        }
+    }
 }
 
 function checkUsername() {
@@ -63,7 +72,7 @@ function checkUsername() {
     } else if (usernameInput.value.length >= 13) {
         textError("Username", "Nome Muito Grande!");
         return false;
-    } else if (Cadastros[usernameInput.value.toLowerCase()]) {
+    } else if (Cadastros[usernameInput.value.toLowerCase()] && usernameInput.value.toLowerCase() != Credentials.name) {
         textError("Username", "Nome Já Existente!");
         return false;
     } else {
@@ -72,23 +81,30 @@ function checkUsername() {
 }
 
 function checkPassword() {
-    if (passwordInput.value.length <= 6) {
-        textError("Password", "Senha Muito Pequena!");
-        return false;
-    } else {
-        return true;
-    }
+    if (passwordInput.readOnly == false) {
+        if (passwordInput.value.length <= 6) {
+            textError("Password", "Senha Muito Pequena!");
+            return false;
+        }
+    } 
+    return true;
 }
 
 function checkEmail() {
     //Regex para validação de e-mail retirado de: https://regexr.com/3e48o
     if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(emailInput.value) == false) {
         textError("Email", "Email Inválido");
+        return false;
     } else {
         return true;
     }
 }
 
+function resetErrors() {
+    for (let element of textErrors) {
+        element.style.display = "none";
+    }
+}
 function textError(type, text) {
     let ele;
     if (type == "Password") {
@@ -98,54 +114,50 @@ function textError(type, text) {
     } else {
         ele = document.getElementById("email");
     }
-    if (!document.getElementById(`error-message-${type}`)) {
-        let errorMessage = document.createElement("div");
-        errorMessage.textContent = text;
-        errorMessage.className = "error-message";
-        errorMessage.id = `error-message-${type}`;
-        ele.insertAdjacentElement("afterend", errorMessage);
-    } else {
-        document.getElementById(`error-message-${type}`).textContent = text;
-    }
+
+    let errorText = ele.parentElement.parentElement.children[3];
+    errorText.textContent = text;
+    errorText.style.display = "block";
 }
 
-saveButton.addEventListener("click", () => {
-    // Username
-    if (usernameInput.value.toLowerCase() != Credentials.name) {
-        if (checkUsername()) {
-            Cadastros[usernameInput.value.toLowerCase()] =
-                Cadastros[Credentials.name];
-            delete Cadastros[Credentials.name];
-            Credentials.name = usernameInput.value.toLowerCase();
-            localStorage.setItem("Credentials", JSON.stringify(Credentials));
-            localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
-            window.location.reload();
-        } else {
-            return;
-        }
-    }
+saveButton.addEventListener("click", function () {
+    resetErrors();
+    let usernameCheck = checkUsername();
+    let passwordCheck = checkPassword();
+    let emailCheck = checkEmail();
+    if (passwordCheck && usernameCheck && emailCheck) {
 
-    // Password
-    if (passwordInput.value.length >= 1) {
-        if (checkPassword()) {
+        //Setar username
+        if (usernameInput.value.toLowerCase() != Credentials.name && usernameInput.readOnly == false) {
+            Object.defineProperty(Cadastros, usernameInput.value.toLowerCase(), Object.getOwnPropertyDescriptor(Cadastros, Credentials.name))
+            console.log(Cadastros)
+            delete Cadastros[Credentials.name];
+    
+            console.log(Cadastros);
+            Credentials.name = usernameInput.value.toLowerCase();
+            console.log(Cadastros[Credentials.name]);
+    
+            Credentials.unchangedname = usernameInput.value;
+        }
+       
+        //Setar password
+        if (passwordInput.readOnly == false) {
             Cadastros[Credentials.name]["senha"] = passwordInput.value;
             Credentials.senha = passwordInput.value;
-            localStorage.setItem("Credentials", JSON.stringify(Credentials));
-            localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
-            window.location.reload();
-        } else {
-            return;
         }
-    }
 
-    if (emailInput.value != Cadastros[Credentials.name]["email"]) {
-        Cadastros[Credentials.name]["email"] = emailInput.value;
-        localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
-        window.location.reload();
-    }
+        //Setar email
+        if (emailInput.readOnly == false) {
+            Cadastros[Credentials.name].email = emailInput.value;
+        }
 
-    if (addressInput.value != Cadastros[Credentials.name]["address"]) {
-        Cadastros[Credentials.name]["address"] = addressInput.value;
+        //Setar address
+        if (addressInput.readOnly == false) {
+            Cadastros[Credentials.name]["address"] = addressInput.value;
+        }
+
+        // Atualizar no banco de dados
+        localStorage.setItem("Credentials", JSON.stringify(Credentials));
         localStorage.setItem("Cadastros", JSON.stringify(Cadastros));
         window.location.reload();
     }
