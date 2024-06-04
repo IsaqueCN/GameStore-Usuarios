@@ -4,13 +4,16 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     background-color: black;
 }
 
-nav {
+nav,
+.input-group-text {
     background-color: #993399 !important;
 }
+
 nav img {
     max-height: 60px;
     width: auto;
@@ -18,8 +21,13 @@ nav img {
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+    max-height: 250px;
+}
+
+@media (min-width: 1200px) {
+    img {
+        max-height: 500px;
+    }
 }
 
 #custom-hr {
@@ -28,4 +36,4 @@ img {
     background-color: rgb(255, 255, 255) !important;
     opacity: .5 !important;
     height: 2px !important;
-  }
+}
