@@ -9,10 +9,23 @@ html, body {
 }
 
 nav {
-    background-color: #e000e0 !important;
+    background-color: #993399 !important;
 }
-img {
+nav img {
     max-height: 60px;
     width: auto;
     height: auto;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#custom-hr {
+    width: 70%;
+    border: none !important;
+    background-color: rgb(255, 255, 255) !important;
+    opacity: .5 !important;
+    height: 2px !important;
+  }
