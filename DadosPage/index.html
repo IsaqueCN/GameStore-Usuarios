@@ -26,12 +26,20 @@
                     <div class="navbar-nav me-4 fs-4">
                         <a class="nav-link" href="#">Loja</a>
                         <a class="nav-link" href="#">Biblioteca</a>
-                        <a class="nav-link active" href="#">Navegar</a>
+                        <a class="nav-link active" href="#">Perfil</a>
                     </div>
                 </div>
-                <a class="navbar-brand d-md-flex d-none">
-                    <img src="Imagens/dog.png" alt="Profile" height="35" width="35">
-                </a>
+                <div id="sairDiv" class="dropdown d-md-flex d-none bg-black p-2 justify-content-around align-items-center">
+                    <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="Imagens/dog.png" alt="Usuário">
+                    </a>
+                    <button id="sair-Button" class="sair-button btn btn-danger p-0 p-lg-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">Sair</button>
+                    <ul class="dropdown-menu">
+                      <li><p class="dropdown-item m-0" id="usernameText">Username</p></li>
+                    </ul>
+                  </div>
+
+            </div>
             </div>
         </nav>
     </header>
@@ -49,9 +57,9 @@
                     <img src="Imagens/dog.png">
                 </div>
                 <div class="col-12 col-xl-6 mt-4 d-flex justify-content-center">
-                    <form id="formDiv" class="ms-5 col-8 text-center">
-                        <div id="errorUsername" class="d-none justify-content-start">
-                            <label for="usernameInput" class="form-label text-danger ms-4 p-0">NOME INVÁLIDO</label>
+                    <form id="formDiv" class="ms-xl-5 ms-0 col-11 text-center">
+                        <div id="errorUsername" class="d-none justify-content-center">
+                            <label for="usernameInput" class="form-label text-danger fs-4 p-0">NOME INVÁLIDO</label>
                         </div>
                         <div id="usernameDiv" class="mb-3">
                             <span class="ps-3 input-group-text d-flex justify-content-center fs-4">Nome: </span>
@@ -60,30 +68,30 @@
                                 placeholder="Nome aqui...">
                         </div>
 
-                        <div id="errorEmail" class="d-none justify-content-start">
-                            <label for="passwordInput" class="form-label text-danger ms-4 p-0">EMAIL INVÁLIDO</label>
+                        <div id="errorEmail" class="d-none justify-content-center">
+                            <label for="passwordInput" class="form-label text-danger fs-4 p-0">EMAIL INVÁLIDO</label>
                         </div>
-                        <div id="emailDiv" class="mb-4">
+                        <div id="emailDiv" class="mb-3">
                             <span class="ps-3 input-group-text d-flex justify-content-center fs-4">E-Mail: </span>
                             <input id="emailInput" type="text"
                                 class="form-control form-control-lg text-center rounded-0 montserrat-family"
                                 placeholder="E-Mail aqui...">
                         </div>
 
-                        <div id="errorAddress" class="d-none justify-content-start">
-                            <label for="addressInput" class="form-label text-danger ms-4 p-0">ENDEREÇO INVÁLIDO</label>
+                        <div id="errorAddress" class="d-none justify-content-center">
+                            <label for="addressInput" class="form-label text-danger fs-4 p-0">ENDEREÇO INVÁLIDO</label>
                         </div>
-                        <div id="addressDiv" class="mb-4">
+                        <div id="addressDiv" class="mb-3">
                             <span class="ps-3 input-group-text d-flex justify-content-center fs-4">Endereço: </span>
                             <input id="addressInput" type="text"
                                 class="form-control form-control-lg text-center rounded-0 montserrat-family"
                                 placeholder="Endereço aqui...">
                         </div>
 
-                        <div id="errorPassword" class="d-none justify-content-start">
-                            <label for="passwordInput" class="form-label text-danger ms-4 p-0">SENHA INVÁLIDA</label>
+                        <div id="errorPassword" class="d-none justify-content-center">
+                            <label for="passwordInput" class="form-label text-danger fs-4 p-0">SENHA INVÁLIDA</label>
                         </div>
-                        <div id="passwordDiv" class="mb-4">
+                        <div id="passwordDiv" class="mb-3">
                             <span class="ps-3 input-group-text d-flex justify-content-center fs-4">Senha: </span>
                             <input id="passwordInput" type="password"
                                 class="form-control form-control-lg text-center rounded-0 montserrat-family"

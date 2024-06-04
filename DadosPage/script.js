@@ -1,13 +1,17 @@
-/*// É necessário mostrar os dados do usuário
-let saveButton = document.getElementById("save-button");
-let emailInput = document.getElementById("email");
-let usernameInput = document.getElementById("username");
-let passwordInput = document.getElementById("password");
-let addressInput = document.getElementById("address");
+// É necessário mostrar os dados do usuário
+let formDiv = document.getElementById("formDiv");
+let saveButton = document.getElementById("alterarButton");
+let emailInput = document.getElementById("emailInput");
+let usernameInput = document.getElementById("usernameInput");
+let passwordInput = document.getElementById("passwordInput");
+let addressInput = document.getElementById("addressInput");
 let usernameText = document.getElementById("usernameText");
-let logoutButton = document.getElementById("logout-button");
-let alterButtons = document.getElementsByClassName("alter-button")
-let textErrors = document.getElementsByClassName("text-error")
+let logoutButton = document.getElementById("sair-Button");
+let textErrors = {
+    "username": [document.getElementById("errorUsername"), usernameInput.parentElement],
+    "password": [document.getElementById("errorPassword"), passwordInput.parentElement],
+    "email": [document.getElementById("errorEmail"), emailInput.parentElement]
+}
 
 let Cadastros; // Objeto que contem todas as contas
 try {
@@ -35,26 +39,6 @@ if (
     }
 }
 
-for (let element of alterButtons) {
-    let inputElement = element.parentElement.children[0];
-
-    element.addEventListener("click", function () {
-        alterarCampo(inputElement);
-    })
-};
-
-function alterarCampo(campo) {
-    if (campo.readOnly == true) {
-        campo.readOnly = false;
-        campo.focus();
-    } else {
-        campo.readOnly = true;
-        if (campo.getAttribute("type") == "password") {
-            campo.value = "";
-        }
-    }
-}
-
 function checkUsername() {
     if (usernameInput.value.length <= 3) {
         textError("Username", "Nome Muito Pequeno!");
@@ -71,7 +55,7 @@ function checkUsername() {
 }
 
 function checkPassword() {
-    if (passwordInput.readOnly == false) {
+    if (passwordInput.value != "") {
         if (passwordInput.value.length <= 6) {
             textError("Password", "Senha Muito Curta!");
             return false;
@@ -85,7 +69,7 @@ function checkPassword() {
             textError("Password", "Senha Deve Ter Caracteres Especiais!");
             return false;
         }
-    } 
+    }
     return true;
 }
 
@@ -100,60 +84,59 @@ function checkEmail() {
 }
 
 function resetErrors() {
-    for (let element of textErrors) {
-        element.style.display = "none";
+    for (let element in textErrors) {
+        textErrors[element][0].style.setProperty("display", "none", "important");
+        textErrors[element][0].style.setProperty("border", "none", "");
     }
 }
 function textError(type, text) {
-    let ele;
-    if (type == "Password") {
-        ele = document.getElementById("password");
-    } else if (type == "Username") {
-        ele = document.getElementById("username");
-    } else {
-        ele = document.getElementById("email");
-    }
+    let errorDiv = textErrors[type.toLowerCase()][0];
+    let normalDiv = textErrors[type.toLowerCase()][1]
 
-    let errorText = ele.parentElement.parentElement.children[3];
+    errorDiv.style.setProperty("display", "flex", "important");
+    normalDiv.style.setProperty("border", "red 2px solid", "important")
+
+    let errorText = errorDiv.children[0];
     errorText.textContent = text;
-    errorText.style.display = "block";
+    console.log(errorText)
 }
 
-saveButton.addEventListener("click", function () {
+formDiv.addEventListener("submit", function (e) {
+    e.preventDefault();
     resetErrors();
     let usernameCheck = checkUsername();
     let passwordCheck = checkPassword();
     let emailCheck = checkEmail();
+
+    console.log( usernameCheck, passwordCheck, emailCheck)
     if (passwordCheck && usernameCheck && emailCheck) {
 
         //Setar username
-        if (usernameInput.value.toLowerCase() != Credentials.name && usernameInput.readOnly == false) {
+        if (usernameInput.value.toLowerCase() != Credentials.name) {
             Object.defineProperty(Cadastros, usernameInput.value.toLowerCase(), Object.getOwnPropertyDescriptor(Cadastros, Credentials.name))
             console.log(Cadastros)
             delete Cadastros[Credentials.name];
-    
+
             console.log(Cadastros);
             Credentials.name = usernameInput.value.toLowerCase();
             console.log(Cadastros[Credentials.name]);
-    
+
             Credentials.unchangedname = usernameInput.value;
         }
-       
+
         //Setar password
-        if (passwordInput.readOnly == false) {
+        if (passwordInput.value != "") {
             Cadastros[Credentials.name]["senha"] = passwordInput.value;
             Credentials.senha = passwordInput.value;
         }
 
         //Setar email
-        if (emailInput.readOnly == false) {
-            Cadastros[Credentials.name].email = emailInput.value;
-        }
+
+        Cadastros[Credentials.name].email = emailInput.value;
 
         //Setar address
-        if (addressInput.readOnly == false) {
-            Cadastros[Credentials.name]["address"] = addressInput.value;
-        }
+
+        Cadastros[Credentials.name]["address"] = addressInput.value;
 
         // Atualizar no banco de dados
         localStorage.setItem("Credentials", JSON.stringify(Credentials));
@@ -167,5 +150,3 @@ logoutButton.addEventListener("click", () => {
     localStorage.setItem("Credentials", JSON.stringify({}));
     window.location.href = "../LoginPage/index.html";
 });
-
-*/

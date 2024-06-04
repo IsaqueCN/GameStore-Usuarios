@@ -20,6 +20,14 @@ nav img {
     height: auto;
 }
 
+#sairDiv {
+    width: clamp(150px, 15%, 230px)
+}
+#sair-Button {
+    height: 50%;
+    width: clamp(40px, 100%, 90px)
+}
+
 img {
     max-height: 250px;
 }
