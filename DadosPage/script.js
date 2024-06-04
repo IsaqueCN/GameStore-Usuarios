@@ -1,4 +1,4 @@
-// É necessário mostrar os dados do usuário
+/*// É necessário mostrar os dados do usuário
 let saveButton = document.getElementById("save-button");
 let emailInput = document.getElementById("email");
 let usernameInput = document.getElementById("username");
@@ -167,3 +167,5 @@ logoutButton.addEventListener("click", () => {
     localStorage.setItem("Credentials", JSON.stringify({}));
     window.location.href = "../LoginPage/index.html";
 });
+
+*/
